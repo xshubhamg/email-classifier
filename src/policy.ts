@@ -14,6 +14,20 @@ export const DEFAULT_THRESHOLDS: PolicyThresholds = {
   salesPitchNoul: 0.9,
 };
 
+// Parse optional per-request threshold overrides (API body / UI sliders).
+// Unknown keys ignored, out-of-range values dropped.
+export function parseThresholds(body: unknown): Partial<PolicyThresholds> | undefined {
+  if (typeof body !== "object" || body === null) return undefined;
+  const t = (body as Record<string, unknown>).thresholds;
+  if (typeof t !== "object" || t === null) return undefined;
+  const out: Partial<PolicyThresholds> = {};
+  for (const k of ["reviewConfidence", "spamQuarantine", "urgentNoul", "salesPitchNoul"] as const) {
+    const v = (t as Record<string, unknown>)[k];
+    if (typeof v === "number" && Number.isFinite(v) && v >= 0 && v <= 1) out[k] = v;
+  }
+  return Object.keys(out).length > 0 ? out : undefined;
+}
+
 // Pure function — unit-testable without any API call.
 // Weighted spam formula follows TypeSafe's recommended decomposition:
 // don't ask "is this spam?", combine atomic signals in code.

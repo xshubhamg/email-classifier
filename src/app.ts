@@ -1,12 +1,11 @@
 import express from "express";
-import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { classifyEmail, JEV_MODEL } from "./classify.js";
 import { hasApiKey } from "./jev-client.js";
 import { QUESTION_SET_VERSION } from "./questions.js";
-import type { PolicyThresholds } from "./policy.js";
-import type { DemoEmail } from "./types.js";
+import { loadDemoEmails } from "./demo.js";
+import { parseThresholds } from "./policy.js";
 import "dotenv/config";
 
 const app = express();
@@ -17,36 +16,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // Local dev: serve the UI from Express. On Vercel, public/ is served by the
 // CDN (see vercel.json) and this is a harmless no-op fallback.
 app.use(express.static(join(__dirname, "..", "..", "public")));
-
-// Demo inbox for the UI. Resolved from the project root in local dev and
-// bundled via includeFiles on Vercel (see vercel.json).
-function loadDemoEmails(): DemoEmail[] {
-  const candidates = [
-    join(process.cwd(), "data", "emails.json"),
-    join(__dirname, "..", "..", "data", "emails.json"),
-    join(__dirname, "..", "data", "emails.json"),
-  ];
-  for (const p of candidates) {
-    try {
-      return JSON.parse(readFileSync(p, "utf8")) as DemoEmail[];
-    } catch {
-      // try next candidate
-    }
-  }
-  throw new Error("demo inbox not found (data/emails.json)");
-}
-
-function parseThresholds(body: unknown): Partial<PolicyThresholds> | undefined {
-  if (typeof body !== "object" || body === null) return undefined;
-  const t = (body as Record<string, unknown>).thresholds;
-  if (typeof t !== "object" || t === null) return undefined;
-  const out: Partial<PolicyThresholds> = {};
-  for (const k of ["reviewConfidence", "spamQuarantine", "urgentNoul", "salesPitchNoul"] as const) {
-    const v = (t as Record<string, unknown>)[k];
-    if (typeof v === "number" && Number.isFinite(v) && v >= 0 && v <= 1) out[k] = v;
-  }
-  return Object.keys(out).length > 0 ? out : undefined;
-}
 
 app.get("/health", (_req, res) => {
   res.json({
