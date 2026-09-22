@@ -1,6 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
+  "rewrites": [
+    { "source": "/health", "destination": "/api/health" },
+    { "source": "/demo", "destination": "/api/demo" },
+    { "source": "/classify/:rest*", "destination": "/api/classify/:rest*" }
+  ],
   "functions": {
     "api/demo.ts": {
       "includeFiles": "data/emails.json"
