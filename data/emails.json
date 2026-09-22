@@ -1,0 +1,74 @@
+[
+  {
+    "id": "support-urgent-stripe",
+    "subject": "Stripe integration failing — losing sales",
+    "from": "customer@acme.com",
+    "body": "Hi, I've been trying to connect my Stripe account for 3 days and the integration keeps failing. I'm losing sales. Please help ASAP.",
+    "gold_department": "support",
+    "gold_spam": false,
+    "gold_urgent": true
+  },
+  {
+    "id": "billing-double-charge",
+    "subject": "Charged twice this month",
+    "from": "marta@example.com",
+    "body": "Hello, I was charged twice on my invoice #4821. Can you refund the duplicate charge? Thank you.",
+    "gold_department": "billing",
+    "gold_spam": false,
+    "gold_urgent": false
+  },
+  {
+    "id": "sales-pricing",
+    "subject": "Pricing for 50-seat plan?",
+    "from": "prospect@startup.io",
+    "body": "Hi team, we're evaluating your product for a 50-seat rollout. Can you share pricing and book a demo next week?",
+    "gold_department": "sales",
+    "gold_spam": false,
+    "gold_urgent": false
+  },
+  {
+    "id": "phish-credentials",
+    "subject": "URGENT: Verify your account now",
+    "from": "support@paypaI-secure-tempmail.com",
+    "body": "Dear user, your PayPal account will be suspended. Verify your password and bank details immediately at the link below.",
+    "gold_department": "other",
+    "gold_spam": true,
+    "gold_urgent": true
+  },
+  {
+    "id": "prize-scam",
+    "subject": "Congratulations! You won $50,000",
+    "from": "winner@lottery-claims.net",
+    "body": "Congratulations, you won the international lottery! To claim your $50,000 prize, send your full name, address and bank details.",
+    "gold_department": "other",
+    "gold_spam": true,
+    "gold_urgent": false
+  },
+  {
+    "id": "hiring-application",
+    "subject": "Application: Backend Engineer",
+    "from": "candidate@gmail.com",
+    "body": "Hi, I'm applying for the Backend Engineer role. My resume is attached. I'd love to interview next week.",
+    "gold_department": "hiring",
+    "gold_spam": false,
+    "gold_urgent": false
+  },
+  {
+    "id": "newsletter",
+    "subject": "Your weekly digest",
+    "from": "news@newsletter.com",
+    "body": "Here are this week's top stories. Unsubscribe anytime if you no longer wish to receive these.",
+    "gold_department": "other",
+    "gold_spam": false,
+    "gold_urgent": false
+  },
+  {
+    "id": "deploy-500s",
+    "subject": "Deploy failed twice, customers seeing 500s",
+    "from": "oncall@acme.com",
+    "body": "The deploy failed twice and customers are seeing 500s. Can someone look now?",
+    "gold_department": "support",
+    "gold_spam": false,
+    "gold_urgent": true
+  }
+]

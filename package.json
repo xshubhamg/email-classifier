@@ -1,0 +1,25 @@
+{
+  "name": "email-classifier-jev",
+  "version": "0.1.0",
+  "description": "Email classifier using TypeSafe AI Jev (System One model) — typed decisions, no text generation",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "classify": "tsx src/cli.ts",
+    "eval": "tsx src/evaluate.ts",
+    "api": "tsx src/server.ts",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@typesafe-ai/sdk": "^0.6.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.7.4",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
+  }
+}
